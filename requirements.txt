@@ -1,0 +1,6 @@
+graph-nets==1.0.4
+jupyter==1.0.0
+matplotlib==2.2.4
+tensorflow==1.14.0
+tensorflow-probability==0.7.0
+ujson==1.35

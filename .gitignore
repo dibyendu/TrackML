@@ -1,0 +1,17 @@
+# data
+# **/*.json
+# **/*.json.bz2
+
+# Saved model
+# Model*
+
+# Predictions/Results
+Prediction*
+
+# ignore all . folders but include . files
+.*/
+
+**/*.pyc
+*.pyc
+__pycache__
+
