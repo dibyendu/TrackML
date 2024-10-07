@@ -38,12 +38,18 @@ def plotLayersSinglePlot(hL, show=False, title='Layer', save_loc=None):
     bar = ['lightblue', 'skyblue','deepskyblue', 'royalblue', 'blue', 'navy']
     fig = plt.figure()
     plt.title(title)
+    legends, labels = [], []
     for i in range(len(hL)):
         p = hL[i]
         x, y = getXY(p)
         plt.scatter(x, y, color=colors[bar[i]], label='HL' + str(i))
         plt.xlim(0, p.shape[0])
         plt.ylim(0, p.shape[1])
+        plt.xticks([])
+        plt.yticks([])
+        legends.append((plt.scatter([0], [0], color=colors[bar[i]], marker='o', s=40), ))
+        labels.append('Layer ' + str(i+1))
+    plt.legend(legends, labels, handler_map={tuple: HandlerTuple(ndivide=None)})
 
     if show:
         for i in plt.get_fignums():
@@ -51,7 +57,8 @@ def plotLayersSinglePlot(hL, show=False, title='Layer', save_loc=None):
             plt.show(block=True)
     
     if save_loc:
-        plt.savefig(save_loc)
+        plt.savefig(f'{save_loc}.png')
+        plt.savefig(f'{save_loc}.svg', format='svg')
         plt.close(fig)
 
 def PlotImage(hL, gthL, title1="Input Image", title2="Ground Truth Image", show=False):
@@ -63,7 +70,6 @@ def PlotImage(hL, gthL, title1="Input Image", title2="Ground Truth Image", show=
     plt.legend()
 
 def PlotSingleImage(data, width=1024, title='Labelled Input Image', save_loc=None):
-
     hL, gthL = [], []
     for l in data['hL']:
         zeros = np.zeros((1024, 1024))
@@ -115,16 +121,18 @@ def PlotSingleImage(data, width=1024, title='Labelled Input Image', save_loc=Non
         plt.scatter(fx, fy, color=colors[false_color[i]])
         plt.xlim(0, p.shape[0])
         plt.ylim(0, p.shape[1])
+        plt.xticks([])
+        plt.yticks([])
         legends.append((plt.scatter([0], [0], color=colors[true_color[i]], marker='o', s=40), plt.scatter([1], [0], color=colors[false_color[i]], marker='o', s=40)))
-        labels.append('HL' + str(i))
+        labels.append('Layer ' + str(i+1))
     plt.title(title)
     plt.legend(legends, labels, handler_map={tuple: HandlerTuple(ndivide=None)})
     if save_loc:
-        plt.savefig(save_loc)
+        plt.savefig(f'{save_loc}.png')
+        plt.savefig(f'{save_loc}.svg', format='svg')
         plt.close(fig)
     
 def PlotModelPrediction(hL, noise_pos, missed, false_prediction, width=1024, title='Noise Prediction', save_loc=None):
-    
     nhL = []
     for l in hL:
         zeros = np.zeros((1024, 1024))
@@ -171,10 +179,13 @@ def PlotModelPrediction(hL, noise_pos, missed, false_prediction, width=1024, tit
         plt.scatter(fx, fy, color=colors[noise_color[i]])
         plt.xlim(0, p.shape[0])
         plt.ylim(0, p.shape[1])
+        plt.xticks([])
+        plt.yticks([])
         legends.append((plt.scatter([0], [0], color=colors[point_color[i]], marker='o', s=40), plt.scatter([1], [0], color=colors[noise_color[i]], marker='o', s=40)))
-        labels.append('HL' + str(i))
+        labels.append('Layer ' + str(i+1))
     plt.title(title)
     plt.legend(legends, labels, handler_map={tuple: HandlerTuple(ndivide=None)})
     if save_loc:
-        plt.savefig(save_loc)
+        plt.savefig(f'{save_loc}.png')
+        plt.savefig(f'{save_loc}.svg', format='svg')
         plt.close(fig)
